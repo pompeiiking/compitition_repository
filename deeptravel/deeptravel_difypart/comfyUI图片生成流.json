@@ -1,0 +1,344 @@
+{
+  "1": {
+    "inputs": {
+      "seed": 607905697617783,
+      "steps": 35,
+      "cfg": 7,
+      "sampler_name": "dpmpp_2m_cfg_pp",
+      "scheduler": "karras",
+      "denoise": 1,
+      "model": [
+        "2",
+        0
+      ],
+      "positive": [
+        "3",
+        0
+      ],
+      "negative": [
+        "4",
+        0
+      ],
+      "latent_image": [
+        "5",
+        0
+      ]
+    },
+    "class_type": "KSampler",
+    "_meta": {
+      "title": "K采样器"
+    }
+  },
+  "2": {
+    "inputs": {
+      "ckpt_name": "juggernaut_reborn.safetensors"
+    },
+    "class_type": "CheckpointLoaderSimple",
+    "_meta": {
+      "title": "Checkpoint加载器(简易)"
+    }
+  },
+  "3": {
+    "inputs": {
+      "text": "\"Ultra HD 8K landscape of Norwegian fjord at sunset, steep cliffs covered in pine trees, calm water mirroring pink clouds, red wooden cabin by shore with smoke from chimney, grazing reindeer in meadow, aerial view from drone at 100m altitude, National Geographic photo style, sharp focus front to back, Canon EOS R5 shot, f/11 aperture, --no blurry distortion oversaturation\"",
+      "clip": [
+        "49",
+        0
+      ]
+    },
+    "class_type": "CLIPTextEncode",
+    "_meta": {
+      "title": "CLIP文本编码器"
+    }
+  },
+  "4": {
+    "inputs": {
+      "text": "",
+      "clip": [
+        "49",
+        0
+      ]
+    },
+    "class_type": "CLIPTextEncode",
+    "_meta": {
+      "title": "CLIP文本编码器"
+    }
+  },
+  "5": {
+    "inputs": {
+      "width": 512,
+      "height": 768,
+      "batch_size": 1
+    },
+    "class_type": "EmptyLatentImage",
+    "_meta": {
+      "title": "空Latent"
+    }
+  },
+  "7": {
+    "inputs": {
+      "upscale_method": "nearest-exact",
+      "scale_by": 2,
+      "samples": [
+        "1",
+        0
+      ]
+    },
+    "class_type": "LatentUpscaleBy",
+    "_meta": {
+      "title": "Latent按系数缩放"
+    }
+  },
+  "8": {
+    "inputs": {
+      "seed": 528172361011732,
+      "steps": 20,
+      "cfg": 8,
+      "sampler_name": "euler",
+      "scheduler": "normal",
+      "denoise": 0.6,
+      "model": [
+        "2",
+        0
+      ],
+      "positive": [
+        "4",
+        0
+      ],
+      "negative": [
+        "4",
+        0
+      ],
+      "latent_image": [
+        "7",
+        0
+      ]
+    },
+    "class_type": "KSampler",
+    "_meta": {
+      "title": "K采样器"
+    }
+  },
+  "10": {
+    "inputs": {
+      "samples": [
+        "8",
+        0
+      ],
+      "vae": [
+        "2",
+        2
+      ]
+    },
+    "class_type": "VAEDecode",
+    "_meta": {
+      "title": "VAE解码"
+    }
+  },
+  "24": {
+    "inputs": {
+      "images": [
+        "10",
+        0
+      ]
+    },
+    "class_type": "PreviewImage",
+    "_meta": {
+      "title": "预览图像"
+    }
+  },
+  "26": {
+    "inputs": {
+      "samples": [
+        "1",
+        0
+      ],
+      "vae": [
+        "2",
+        2
+      ]
+    },
+    "class_type": "VAEDecode",
+    "_meta": {
+      "title": "VAE解码"
+    }
+  },
+  "27": {
+    "inputs": {
+      "images": [
+        "26",
+        0
+      ]
+    },
+    "class_type": "PreviewImage",
+    "_meta": {
+      "title": "预览图像"
+    }
+  },
+  "28": {
+    "inputs": {
+      "model_name": "2x-AnimeSharpV2_RPLKSR_Soft.pth"
+    },
+    "class_type": "UpscaleModelLoader",
+    "_meta": {
+      "title": "放大模型加载器"
+    }
+  },
+  "29": {
+    "inputs": {
+      "upscale_model": [
+        "28",
+        0
+      ],
+      "image": [
+        "10",
+        0
+      ]
+    },
+    "class_type": "ImageUpscaleWithModel",
+    "_meta": {
+      "title": "图像通过模型放大"
+    }
+  },
+  "30": {
+    "inputs": {
+      "images": [
+        "29",
+        0
+      ]
+    },
+    "class_type": "PreviewImage",
+    "_meta": {
+      "title": "预览图像"
+    }
+  },
+  "33": {
+    "inputs": {
+      "strength": 0.5,
+      "start_percent": 0,
+      "end_percent": 1,
+      "positive": [
+        "3",
+        0
+      ],
+      "negative": [
+        "4",
+        0
+      ],
+      "control_net": [
+        "40",
+        0
+      ],
+      "image": [
+        "29",
+        0
+      ],
+      "vae": [
+        "41",
+        0
+      ]
+    },
+    "class_type": "ControlNetApplyAdvanced",
+    "_meta": {
+      "title": "ControlNet应用（旧版高级）"
+    }
+  },
+  "40": {
+    "inputs": {
+      "control_net_name": null
+    },
+    "class_type": "ControlNetLoader",
+    "_meta": {
+      "title": "ControlNet加载器"
+    }
+  },
+  "41": {
+    "inputs": {
+      "vae_name": "neptuniaXLVAE_contrastColors.safetensors"
+    },
+    "class_type": "VAELoader",
+    "_meta": {
+      "title": "VAE加载器"
+    }
+  },
+  "42": {
+    "inputs": {
+      "seed": 649234152786867,
+      "steps": 20,
+      "cfg": 8,
+      "sampler_name": "dpmpp_2m_cfg_pp",
+      "scheduler": "normal",
+      "denoise": 0.5,
+      "model": [
+        "45",
+        0
+      ],
+      "positive": [
+        "33",
+        0
+      ],
+      "negative": [
+        "33",
+        1
+      ],
+      "latent_image": [
+        "8",
+        0
+      ]
+    },
+    "class_type": "KSampler",
+    "_meta": {
+      "title": "K采样器"
+    }
+  },
+  "45": {
+    "inputs": {
+      "ckpt_name": "anything-v5-PrtRE.safetensors"
+    },
+    "class_type": "CheckpointLoaderSimple",
+    "_meta": {
+      "title": "Checkpoint加载器(简易)"
+    }
+  },
+  "47": {
+    "inputs": {
+      "samples": [
+        "42",
+        0
+      ],
+      "vae": [
+        "45",
+        2
+      ]
+    },
+    "class_type": "VAEDecode",
+    "_meta": {
+      "title": "VAE解码"
+    }
+  },
+  "48": {
+    "inputs": {
+      "images": [
+        "47",
+        0
+      ]
+    },
+    "class_type": "PreviewImage",
+    "_meta": {
+      "title": "预览图像"
+    }
+  },
+  "49": {
+    "inputs": {
+      "stop_at_clip_layer": -1,
+      "clip": [
+        "2",
+        1
+      ]
+    },
+    "class_type": "CLIPSetLastLayer",
+    "_meta": {
+      "title": "CLIP设置停止层"
+    }
+  }
+}
